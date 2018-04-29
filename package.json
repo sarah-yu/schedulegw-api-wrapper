@@ -1,5 +1,5 @@
 {
-	"name": "test-gw-api",
+	"name": "schedulegw-api-wrapper",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
