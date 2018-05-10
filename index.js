@@ -18,6 +18,19 @@ app.get('/api/courses', (req, res) => {
 		.catch(err => console.log(err))
 })
 
+app.get('/api/courses/:id', (req, res) => {
+	axios
+		.get(`http://localhost:5000/api/course/${req.params.id}`)
+		.then(course => res.json(course.data))
+		.catch(err => console.log(err))
+})
+
+app.get('/api/schedules', (req, res) => {
+	Schedule.find()
+		.then(schedules => res.json(schedules))
+		.catch(err => console.log(err))
+})
+
 app.post('/api/schedules', (req, res) => {
 	// let courseIds = req.body.map(course => course.id.toString()).join(',')
 	// let endpoint = 'http://localhost:5000/schedules?courses=' + courseIds
@@ -27,19 +40,19 @@ app.post('/api/schedules', (req, res) => {
 	// 	.then(schedule => res.json(schedule))
 	// 	.catch(err => console.log(err))
 
-	// post to temp firebase db
+	// post to temp mongo db
 	let schedule = {
 		courses: req.body.map(course => course.id),
 		name: 'unnamed schedule'
 	}
 
-	// axios
-	// 	.post('https://schedulegw-temp.firebaseio.com/schedules.json', schedule)
-	// 	.then(res => console.log(res))
-	// 	.catch(err => console.log(err))
-
-	// post to temp mongo db
 	Schedule.create(schedule)
+		.then(res => console.log(res))
+		.catch(err => console.log(err))
+})
+
+app.delete('/api/schedules/:id', (req, res) => {
+	Schedule.findByIdAndRemove(req.params.id)
 		.then(res => console.log(res))
 		.catch(err => console.log(err))
 })
