@@ -57,6 +57,14 @@ app.delete('/api/schedules/:id', (req, res) => {
 		.catch(err => console.log(err))
 })
 
+app.put('/api/schedules/:id', (req, res) => {
+	Schedule.findByIdAndUpdate(req.params.id, {
+		name: req.body.name
+	})
+		.then(res => console.log(res))
+		.catch(err => console.log(err))
+})
+
 app.listen(process.env.PORT || 3001, function() {
 	console.log('up and running!')
 })
